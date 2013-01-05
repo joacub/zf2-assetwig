@@ -1,0 +1,39 @@
+di:
+    instance:
+        alias:
+            assetwig-strategy: Heartsentwined\Assetwig\View\TwigStrategy
+            assetwig-environment: Heartsentwined\Assetwig\Twig\Environment
+            assetwig-resolver: Heartsentwined\Assetwig\View\TwigResolver
+            assetwig-extension: Heartsentwined\Assetwig\Twig\Extension
+            # for some reason can't use alias for TwigRenderer
+
+            assetwig-assetic: Heartsentwined\Assetwig\Assetic\Assetic
+
+            assetic-am: Assetic\AssetManager
+            assetic-fm: Assetic\FilterManager
+            assetic-assetwriter: Heartsentwined\Assetwig\Assetic\AssetWriter
+        assetwig-strategy:
+            parameters:
+                renderer: Heartsentwined\Assetwig\View\TwigRenderer
+        Heartsentwined\Assetwig\View\TwigRenderer:
+            parameters:
+                environment: assetwig-environment
+                assetic: assetwig-assetic
+        assetwig-environment:
+            parameters:
+                loader: assetwig-resolver
+                options: {}
+                extensionClasses:
+                    Assetwig: assetwig-extension
+        assetwig-assetic:
+            parameters:
+                environment: assetwig-environment
+                assetWriter: assetic-assetwriter
+                am: assetic-am
+                fm: assetic-fm
+        assetic-assetwriter:
+            parameters:
+                varValues: {}
+view_manager:
+    strategies:
+        assetwig: Heartsentwined\Assetwig\View\TwigStrategy
